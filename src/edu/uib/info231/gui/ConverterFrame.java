@@ -1,4 +1,4 @@
-package edu.uib.info231;
+package edu.uib.info231.gui;
 
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import edu.uib.info231.model.ConverterModel;
 import edu.uib.info231.model.Unit;
 
-public class Converter extends JFrame {
+public class ConverterFrame extends JFrame {
 
 	/**
 	 * 
@@ -28,7 +28,7 @@ public class Converter extends JFrame {
 	private JTextField value2 = new JTextField("");
 	private List<Unit> units;
 
-	public Converter(List<Unit> units) {
+	public ConverterFrame(List<Unit> units) {
 		this.units = units;
 		this.initialize();
 	}

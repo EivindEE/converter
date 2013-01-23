@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import edu.uib.info231.Converter;
+import edu.uib.info231.gui.ConverterFrame;
 import edu.uib.info231.model.Unit;
 
 public class Controller {
@@ -14,7 +14,7 @@ public class Controller {
 			new Unit("NOK", 1), 
 			new Unit("USD", 5.588)
 	);
-	private Converter converter = new Converter(currencies);
+	private ConverterFrame converter = new ConverterFrame(currencies);
 	public static void main(String[] args) {
 		new Controller();
 	}
