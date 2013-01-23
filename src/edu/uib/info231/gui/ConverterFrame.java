@@ -1,11 +1,13 @@
 package edu.uib.info231.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -21,77 +23,60 @@ public class ConverterFrame extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JButton button = new JButton(">");
+	private Container contentPane = this.getContentPane();
+	private ToggelButton button = new TextToggleButton(">");
+	private JPanel unitPanel = new JPanel();
+	private JPanel panelBottom = new JPanel();
 	private JComboBox unit1 = new JComboBox();
 	private JComboBox unit2 = new JComboBox();
 	private JTextField value1 = new JTextField("");
 	private JTextField value2 = new JTextField("");
-	private List<Unit> units;
+	private JButton convert = new JButton("Convert!!!");
 
 	public ConverterFrame(List<Unit> units) {
-		this.units = units;
-		this.initialize();
+		this.unit1 = new JComboBox(new DefaultComboBoxModel(units.toArray()));
+		this.unit2 = new JComboBox(new DefaultComboBoxModel(units.toArray()));
 	}
 	public void initialize() {
-
-		Container contentPane = getContentPane();
-		contentPane.setLayout(new FlowLayout());
-
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JPanel panelTop = new JPanel();
-
-		for (Unit unit : units) {
-			unit1.addItem(unit);
-			unit2.addItem(unit);
-		}
-
-		panelTop.add(unit1);
-		panelTop.add(unit2);
-
-		JPanel panelBottom = new JPanel();
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.contentPane.setLayout(new BorderLayout());
+		this.initUnitPanel();
+		this.initInputPanel();
 		
-		value1.setColumns(5);
-
-		button.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if (button.getText().equals(">")) {
-					button.setText("<");
-				} else {
-					button.setText(">");
-				}
-
-			}
-
-		});
-
-		
-		value2.setColumns(5);
-		panelBottom.add(value1);
-		panelBottom.add(button);
-		panelBottom.add(value2);
-
-		panelTop.setLayout(new FlowLayout());
-
-		JButton convert = new JButton("Convert!!!");
-		convert.addActionListener(new ActionListener() {
-			
+		this.convert.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int fromValue = Integer.parseInt(value1.getText());
 				ConverterModel converterModel = new ConverterModel((Unit) unit1.getSelectedItem(), (Unit) unit2.getSelectedItem());
 				value2.setText(converterModel.convert(fromValue) + "");
-
 			}
-
 		});
-
-		contentPane.add(panelTop);
-		contentPane.add(panelBottom);
-		contentPane.add(convert);
-		setSize(350, 350);
-		setVisible(true);
+		
+		this.contentPane.add(unitPanel, BorderLayout.NORTH);
+		this.contentPane.add(panelBottom, BorderLayout.CENTER);
+		this.contentPane.add(convert, BorderLayout.SOUTH);
+		this.setSize(350, 150);
+		this.setVisible(true);
 
 	}
-
+	private void initInputPanel() {
+		this.value1.setColumns(5);
+		this.value2.setColumns(5);
+		
+		this.button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				button.toggle();
+			}
+		});
+		this.panelBottom.add(value1);
+		this.panelBottom.add(button);
+		this.panelBottom.add(value2);
+		
+	}
+	private void initUnitPanel() {
+		this.unitPanel.setLayout(new FlowLayout());
+		this.unitPanel.add(unit1);
+		this.unitPanel.add(unit2);
+	}
 }
