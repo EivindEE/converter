@@ -26,6 +26,7 @@ public class Controller {
 			units.add(unitArray[i]);
 		}
 		Controller controller = new Controller(units);
+		controller.frame.setTitle("INFO231 converter");
 		controller.frame.initialize();
 
 	}
