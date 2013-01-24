@@ -32,16 +32,18 @@ public class ConverterFrame extends JFrame {
 	private JTextField value1 = new JTextField("");
 	private JTextField value2 = new JTextField("");
 	private JButton convert = new JButton("Convert!!!");
-	private ComboBoxModel units;
+	private ComboBoxModel units1;
+	private ComboBoxModel units2;
 
 	/**
 	 * Creates a new ConverterFrame. The units provided will be the units one can convert between
 	 * @param currencies, the currencies one can convert between
 	 */
 	public ConverterFrame(Unit[] currencies) {
-		this.units = new DefaultComboBoxModel(currencies);
-		this.unit1 = new JComboBox(this.units);
-		this.unit2 = new JComboBox(this.units);
+		this.units1 = new DefaultComboBoxModel(currencies);
+		this.units2 = new DefaultComboBoxModel(currencies);
+		this.unit1 = new JComboBox(this.units1);
+		this.unit2 = new JComboBox(this.units2);
 	}
 	/**
 	 * Initializes the ConverterFrame to the default state
