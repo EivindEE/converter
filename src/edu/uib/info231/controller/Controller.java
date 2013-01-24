@@ -3,9 +3,6 @@ package edu.uib.info231.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
-
 import edu.uib.info231.gui.ConverterFrame;
 import edu.uib.info231.model.CurrencyUnit;
 import edu.uib.info231.model.Unit;
@@ -15,7 +12,7 @@ import edu.uib.info231.model.Unit;
  */
 public class Controller {
 	private ConverterFrame frame;
-	private ComboBoxModel comboBoxModel;
+	
 	/**
 	 * Constructs an instance of Controller using a List<Unit> as an argument
 	 * @param currencies A List of currencies
@@ -28,16 +25,8 @@ public class Controller {
 	 * @param currencies
 	 */
 	public Controller(Unit[] currencies) {
-		this(new DefaultComboBoxModel(currencies));
-	}
-	/**
-	 * Creates an instance of Controller using a ComboBoxModel as an argument
-	 * @param comboBoxModel
-	 */
-	public Controller(ComboBoxModel comboBoxModel) {
 		super();
-		this.comboBoxModel = comboBoxModel;
-		this.frame = new ConverterFrame(this.comboBoxModel);
+		this.frame = new ConverterFrame(currencies);
 	}
 	
 	public static void main(String[] args) {

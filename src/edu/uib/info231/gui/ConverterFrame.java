@@ -5,8 +5,9 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
+import java.text.DecimalFormat;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,12 +17,11 @@ import javax.swing.JTextField;
 
 import edu.uib.info231.model.ConverterModel;
 import edu.uib.info231.model.Unit;
-
+/**
+ * ConverterFrame is the frame that holds the interface for the converter application
+ */
 public class ConverterFrame extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Container contentPane = this.getContentPane();
 	private ToggelButton button = new TextToggleButton(">");
@@ -32,12 +32,22 @@ public class ConverterFrame extends JFrame {
 	private JTextField value1 = new JTextField("");
 	private JTextField value2 = new JTextField("");
 	private JButton convert = new JButton("Convert!!!");
+	private ComboBoxModel units;
 
-	public ConverterFrame(List<Unit> units) {
-		this.unit1 = new JComboBox(new DefaultComboBoxModel(units.toArray()));
-		this.unit2 = new JComboBox(new DefaultComboBoxModel(units.toArray()));
+	/**
+	 * Creates a new ConverterFrame. The units provided will be the units one can convert between
+	 * @param currencies, the currencies one can convert between
+	 */
+	public ConverterFrame(Unit[] currencies) {
+		this.units = new DefaultComboBoxModel(currencies);
+		this.unit1 = new JComboBox(this.units);
+		this.unit2 = new JComboBox(this.units);
 	}
+	/**
+	 * Initializes the ConverterFrame to the default state
+	 */
 	public void initialize() {
+		final DecimalFormat Currency = new DecimalFormat("#0.00");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.contentPane.setLayout(new BorderLayout());
 		this.initUnitPanel();
@@ -63,8 +73,7 @@ public class ConverterFrame extends JFrame {
 				}
 				double fromValue = Double.parseDouble(from.getText());
 				ConverterModel converterModel = new ConverterModel(fromUnit, toUnit);
-				String toValue = String.format("%.2f", converterModel.convert(fromValue));
-				to.setText(toValue);
+				to.setText(Currency.format(converterModel.convert(fromValue)));
 			}
 		});
 		
@@ -75,6 +84,7 @@ public class ConverterFrame extends JFrame {
 		this.setVisible(true);
 
 	}
+	
 	private void initInputPanel() {
 		this.value1.setColumns(5);
 		this.value2.setColumns(5);
@@ -90,6 +100,7 @@ public class ConverterFrame extends JFrame {
 		this.panelBottom.add(value2);
 		
 	}
+	
 	private void initUnitPanel() {
 		this.unitPanel.setLayout(new FlowLayout());
 		this.unitPanel.add(unit1);
