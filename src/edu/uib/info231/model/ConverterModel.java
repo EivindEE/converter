@@ -9,7 +9,7 @@ public class ConverterModel {
 		this.to = to;
 	}
 	
-	public double convert(int fromAmount) {
+	public double convert(double fromAmount) {
 		return (from.getValue() / to.getValue()) * fromAmount;
 	}
 }

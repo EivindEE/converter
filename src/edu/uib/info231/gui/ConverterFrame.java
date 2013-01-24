@@ -46,9 +46,25 @@ public class ConverterFrame extends JFrame {
 		this.convert.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int fromValue = Integer.parseInt(value1.getText());
-				ConverterModel converterModel = new ConverterModel((Unit) unit1.getSelectedItem(), (Unit) unit2.getSelectedItem());
-				value2.setText(converterModel.convert(fromValue) + "");
+				JTextField from = null;
+				Unit fromUnit = null;
+				JTextField to = null;
+				Unit toUnit = null;
+				if (button.getText().equals(">")) {
+					from = value1;
+					fromUnit = (Unit) unit1.getSelectedItem();
+					to = value2;
+					toUnit = (Unit) unit2.getSelectedItem();
+				} else {
+					from = value2;
+					fromUnit = (Unit) unit2.getSelectedItem();
+					to = value1;
+					toUnit = (Unit) unit1.getSelectedItem();
+				}
+				double fromValue = Double.parseDouble(from.getText());
+				ConverterModel converterModel = new ConverterModel(fromUnit, toUnit);
+				String toValue = String.format("%.2f", converterModel.convert(fromValue));
+				to.setText(toValue);
 			}
 		});
 		
